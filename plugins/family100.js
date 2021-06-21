@@ -7,13 +7,13 @@ async function handler(m) {
         this.reply(m.chat, 'Masih ada kuis yang belum terjawab di chat ini', this.game[id].msg)
         throw false
     }
-    let res = await fetch(global.API('xteam', '/game/family100', {}, 'APIKEY'))
+    let res = await fetch(global.API('loli', 'api/tebak/family100', {}, 'apikey'))
     if (!res.ok) throw await res.text()
     let json = await res.json()
     if (!json.status) throw json
     let caption = `
-*Soal:* ${json.soal}
-Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' ')) ? `
+*Soal:* ${json.result.question}
+Terdapat *${json.result.aswer}* jawaban${json.result.aswer.find(v => v.includes(' ')) ? `
 (beberapa jawaban terdapat spasi)
 `: ''}
 +${winScore} XP tiap jawaban benar
@@ -21,8 +21,8 @@ Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' '
     this.game[id] = {
         id,
         msg: await m.reply(caption),
-        ...json,
-        terjawab: Array.from(json.jawaban, () => false),
+        { soal: json.result.question, jawaban: json.result.aswer },
+        terjawab: Array.from(json.result.jawaban, () => false),
         winScore,
     }
 }
