@@ -5,11 +5,11 @@ const { sticker } = require('../lib/sticker')
 const { MessageType } = require('@adiwajshing/baileys')
 
 let handler = async (m, { conn, text }) => {
- try {
   let q = m.quoted ? m.quoted : m
   let mime = (q.msg || q).mimetype || ''
   if (!mime) throw 'Tidak ada foto'
   if (!/image\/(jpe?g|png)/.test(mime)) throw `Mime ${mime} tidak support`
+  try {
 let image = await q.download()
 
 Canvacord.Canvas.wasted(image)
