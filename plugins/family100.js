@@ -7,7 +7,7 @@ async function handler(m) {
         this.reply(m.chat, 'Masih ada kuis yang belum terjawab di chat ini', this.game[id].msg)
         throw false
     }
-    let res = await fetch(global.API('lol', 'api/tebak/family100', {}, 'apikey'))
+    let res = await fetch(global.API('lol', '/api/tebak/family100', {}, 'apikey'))
     if (!res.ok) throw await res.text()
     let json = await res.json()
     if (!json.status) throw json
