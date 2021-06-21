@@ -10,7 +10,7 @@ let handler = async (m, { conn, command, args }) => {
     return `*${title}*\n_${link}_\n_${snippet}_`
   }).join`\n\n`
   try {
-    let ss = await require('../lib/ssweb')(url, full)
+    let ss = `https://api-caliph.herokuapp.com/api/ssweb?url=${url}&full=${full}&delay=1000`
     if (ss.includes('html')) throw ''
     await conn.sendFile(m.chat, ss, 'screenshot.png', url + '\n\n' + msg, m)
   } catch (e) {
@@ -24,7 +24,7 @@ handler.owner = false
 handler.mods = false
 handler.premium = false
 handler.group = false
-handler.private = false
+handl 
 
 handler.admin = false
 handler.botAdmin = false
