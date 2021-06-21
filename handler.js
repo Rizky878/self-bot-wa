@@ -10,6 +10,7 @@ module.exports = {
     if (!chatUpdate.hasNewMessage) return
     if (!chatUpdate.messages && !chatUpdate.count) return
     let m = chatUpdate.messages.all()[0]
+    m.message = (Object.keys(m.message)[0] === 'ephemeralMessage') ? m.message.ephemeralMessage.message : m.message
     try {
       simple.smsg(this, m)
       switch (m.mtype) {
