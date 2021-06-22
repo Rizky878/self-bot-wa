@@ -4,11 +4,12 @@ const { MessageType } = require('@adiwajshing/baileys')
 const { sticker } = require('../lib/sticker')
 
 let handler  = async (m, { conn, text }) => {
-  pp = global.API('lol', '/api/attp', { text }, 'apikey')
-                     await sticker(false, pp, packname, author).then(gege => {
+ if (!text) throw 'Uhm...Teksnya?'
+  pp = await require('axios').get(`https://salism3api.pythonanywhere.com/text2gif/?text=${encodeURIComponent(text)}`)
+                     await sticker(false, pp.data.image, packname, author).then(gege => {
                      conn.sendMessage(m.chat, gege, 'stickerMessage', { quoted: m })
                      })
-  if (!text) throw 'Uhm...Teksnya?'
+  
 }
 handler.help = ['attp <teks>']
 handler.tags = ['sticker']
